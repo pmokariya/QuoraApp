@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>QuoraApp</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
+
+<body>
+    <h1>Quora App</h1>
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+    <h3>
+        <div id="user_nav">
+            <%= link_to "Home", root_path %> |
+            <%= link_to 'Ask Question', new_question_path %> |
+            <%= link_to "All Questions", root_path, class: "question" %> |
+            <%= link_to "Your Questions", questions_path %> |
+            <%= link_to "Your given Answers", answers_path %> |
+            <%= link_to "Topics followed", follow_topic_path %> |
+            <%= link_to "User's following", following_path %> |
+
+            <% if user_signed_in? %>
+            <%= current_user.email %> |
+            <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
+            <% else %>
+            <%= link_to "Sign up", new_user_registration_path %> or <%= link_to "sign in", new_user_session_path %>
+            <% end %>
+        </div>
+    </h3>
+    <%= yield %>
+</body>
+
+</html>

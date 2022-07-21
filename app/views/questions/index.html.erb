@@ -1,0 +1,36 @@
+<h1>Questions</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th colspan="2">User</th>
+            <th colspan="2">Topic</th>
+            <th colspan="3"></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <% @questions.each do |question| %>
+        <tr>
+            <td><%= link_to question.name, question %></td>
+            <td>
+                <%= question.user.email %>
+            </td>
+            <td>
+                <%= link_to "follow user", follows_path(id: question.user.id, key: "user" ),class: "follow_user", method: :post %>
+            </td>
+
+            <td colspan="3">
+                <% question.topics.each do |topic| %>
+                <%= topic.name %>
+                <%= link_to "follow topic",  follows_path(id: topic.id, key: "topic" ) ,class: "follow_topic", method: :post %></br>
+                <% end %>
+            </td>
+
+            <td><%= link_to 'Edit', edit_question_path(question) %></td>
+            <td><%= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+        <% end %>
+    </tbody>
+</table>
